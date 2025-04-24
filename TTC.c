@@ -1,21 +1,47 @@
 #include stdio.h
 
-int main(void) {
-    float velocity = 0.0;
-    float distance = 0.0;
+float getTTC(float distance, float velocity) {
     float ttc = 0.0;
+    ttc = distance / velocity;
+
+    return ttc
 }
+
+enum State {
+    SAFE,
+    WARNING,
+    DECELERATE
+};
+
+State currentState = SAFE;
+
+void updateState(float ttc) {
+    if (ttc >= 2.0) {
+        currentState = SAFE;
+    }
+    else if (ttc >= 1.2) {
+        currentState = WARNING;
+    }
+    else {
+        currentState = DECELERATE;
+    }
+}
+
 
 void loop() {
     float distance = readLidar();
     float velocity = readVelocity();
+    float ttc = getTTC(distance, velocity);
 
-    if (velocity > 0) {
-        float ttc = distance / velocity;
-        if (ttc <= 1.2) {
-            //진동 or led로 경고 출력
-            // 서보모터 감속 시작
-        }
+    updateState(ttc);
+
+    switch (currentState) {
+        case SAFE:
+            break;
+        case WARNING:
+            break;
+        case DECELERATE:
+            break;
     }
 
     delay(20);
