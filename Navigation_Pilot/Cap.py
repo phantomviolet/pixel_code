@@ -74,7 +74,7 @@ print(f"회전 포인트 개수: {len(waypoints)}개")
 current_lat = startY
 current_lon = startX
 
-# 🔥 첫 이동 방향 설정
+# 첫 이동 방향 설정
 if waypoints:
     next_target = waypoints[0]
 else:
@@ -92,11 +92,9 @@ while True:
         if "turnType" in next_target:
             turnType = next_target["turnType"]
             if turnType == 211:
-                print("👉 우회전 하세요!")
+                print("우회전 하세요!")
             elif turnType == 212:
-                print("👈 좌회전 하세요!")
-            else:
-                print(f"🔄 회전 (turnType {turnType}) 하세요!")
+                print("좌회전 하세요!")
 
             waypoints.pop(0)  # 해당 회전 포인트 제거
 
@@ -105,14 +103,14 @@ while True:
         else:
             next_target = {"lat": endY, "lon": endX}
 
-        # 🔥 새로운 방향 다시 설정
+        # 새로운 방향 다시 설정
         step_lat = (next_target["lat"] - current_lat) / 50
         step_lon = (next_target["lon"] - current_lon) / 50
 
     # 도착지점에 거의 도달했으면 종료
     final_dist = haversine(current_lat, current_lon, endY, endX)
     if final_dist < 5:
-        print("✅ 도착했습니다!")
+        print(" 도착했습니다!")
         break
 
     # 이동
