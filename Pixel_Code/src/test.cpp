@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 // 위험 수준을 3단계로 정의
@@ -14,16 +15,17 @@ enum State {
 const float MAX_DECELERATION = 3.0; // m/s²
 const float MAX_SPEED = 5.56;       // 최고속도 20km/h = 5.56m/s
 
+// 제동 거리 계산
+float BrakingDistance(float speed) {
+    return (speed * speed) / (2 * MAX_DECELERATION);
+}
+
 // TTC 계산
 float getTTC(float distance, float speed) {
     if (speed <= 0.0) return 9999.0;
     return distance / speed;
 }
 
-// 제동 거리 계산
-float BrakingDistance(float speed) {
-    return (speed * speed) / (2 * MAX_DECELERATION);
-}
 
 // 위험 수준 판단
 State updateState(float distance, float speed, float ttc) {
@@ -76,6 +78,9 @@ int main() {
     cout << "테스트 횟수: ";
     cin >> testCount;
 
+    ofstream resultFile("result.csv");
+    resultFile << "Distance(m),Speed(m/s),BrakingDistance(m),Result\n";  
+
     int successCount = 0;
     int failCount = 0;
 
@@ -95,10 +100,12 @@ int main() {
         if (brakingDistance <= distance) {
             cout << "감속 성공" << endl;
             successCount++;
+            resultFile  << distance << "," << speed << "," << brakingDistance << ",Success\n";
         } 
         else {
             cout << "감속 실패" << endl;
             failCount++;
+            resultFile << distance << "," << speed << "," << brakingDistance << ",Fail\n";
         }
     }
 
@@ -106,6 +113,8 @@ int main() {
     cout << "\n=== 통계 결과 ===" << endl;
     cout << "성공: " << successCount << "회" << endl;
     cout << "실패: " << failCount << "회" << endl;
+
+    resultFile.close();
 
     return 0;
 }
