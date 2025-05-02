@@ -11,11 +11,28 @@ State currentState = SAFE;
 
 int ttc_sustained_count = 0;
 
-//라이다
+// 라이다
 float readLidar() {
-  //실제 센서 값 읽기 추가
-  uint16_t distance_cm = 100; 
-  return distance_cm / 100.0;
+  if (Serial2.available() >= 9) {
+    if (Serial2.read() == 0x59 && Serial2.peek() == 0x59) {
+      Serial2.read();
+
+      uint8_t dist_L = Serial2.read();
+      uint8_t dist_H = Serial2.read();
+      uint16_t distance_cm = (dist_H << 8) | dist_L;
+
+      for (int i = 0; i < 5; i++) {
+        Serial2.read();
+      }
+
+      return distance_cm / 100.0;
+    } 
+    else {
+      Serial2.read(); // 잘못된 헤더이면 버림
+    }
+  }
+  // 에러처리
+  return -1.0;
 }
 
 //홀센서
@@ -103,5 +120,6 @@ void loop() {
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200); // USB 출력용
+  Serial2.begin(115200, SERIAL_8N1, 16, 17);  // TFMini 연결용
 }
