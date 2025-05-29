@@ -18,7 +18,7 @@ const float TTC_WARNING = 2.0;
 // 서보 각도
 const int SAFE_ANGLE = 350;
 const int WARNING_ANGLE = 150;
-const int DECELERATE_ANGLE = 0;
+const int DECELERATE_ANGLE = 45;
 
 // 루프 주기 제어
 const unsigned long LOOP_INTERVAL_MS = 30;
@@ -135,14 +135,13 @@ void loop() {
         case DECELERATE:
           myservo.write(DECELERATE_ANGLE);
           Serial.println("DEC");
+          delay(2500);
           break;
         default:
           break;
       }
 
-      delay(2500);
       myservo.write(SAFE_ANGLE);
-      Serial.println("SAFE (복귀)");
       dangerCount = 0;
     }
   }
