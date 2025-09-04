@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Temp2_kickboard" parent="android:Theme.Material.Light.NoActionBar">
+    </style>
+    <!-- 스플래시 스크린용 테마 (새로 추가) -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- 스플래시 스크린 배경색 설정 (예: 흰색) -->
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <!-- 스플래시 스크린 중앙에 표시될 아이콘 (로고) 설정 -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/temp_logo</item>
+        <!-- (선택 사항) 아이콘 크기를 조절하고 싶다면 (API 31+). 기본값은 시스템이 결정. -->
+        <!-- <item name="windowSplashScreenIconSize">120dp</item> -->
+
+        <!-- 스플래시 스크린 이후에 적용될 실제 앱 테마 설정 -->
+        <item name="postSplashScreenTheme">@style/Theme.Temp2_kickboard</item>
+    </style>
+</resources>
