@@ -1,11 +1,17 @@
+# esp32_comm.py
+# 사용법:
+#   esp = ESP32BrakeSerial() ; esp.connect()
+#   esp.send_level("MILD")  # SAFE/MILD/STRONG/EMERGENCY
+#   esp.close()
+
 import time, glob
 import serial
 
 LEVEL_TO_ANGLE = {
     "SAFE":       300,  # 브레이크 풀림
-    "MILD":       200,  # 감속
+    "MILD":       150,  # 감속
     "STRONG":     100,  # 강한 감속
-    "EMERGENCY":  0,    # 풀 브레이크
+    "EMERGENCY":  100,    # 풀 브레이크
 }
 
 CANDIDATE_PORTS = [
