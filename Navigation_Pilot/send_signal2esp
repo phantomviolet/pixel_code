@@ -7,7 +7,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.widget.Button /우선 버튼으로 테스트해보기
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import java.io.OutputStream
@@ -63,11 +63,11 @@ class MainActivity : AppCompatActivity() {
 
         //버튼 클릭 시(혹은 신호,코드 받았을 시) ESP32로 신호 전송
         btnMotor1.setOnClickListener {
-            sendData("1") // 모터1 작동
+            sendData("1") // 모터1 작동(led?)
         }
 
         btnMotor2.setOnClickListener {
-            sendData("2") // 모터2 작동
+            sendData("2") // 모터2 작동(led?)
         }
     }
 
