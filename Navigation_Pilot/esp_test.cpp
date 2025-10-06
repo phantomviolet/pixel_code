@@ -2,8 +2,8 @@
 
 BluetoothSerial SerialBT;
 
-const int VIB1_PIN = 15; // 햅틱1
-const int VIB2_PIN = 16; // 햅틱2
+const int VIB1_PIN = 15; // 햅틱1(led?)
+const int VIB2_PIN = 16; // 햅틱2(LED?)
 
 void setup() {
   Serial.begin(115200);
@@ -24,7 +24,7 @@ void loop() {
     Serial.println(signal);
 
     if (signal == '1') {
-      // 햅틱1 진동 500ms
+      // 햅틱1 진동 500ms led켜기
       digitalWrite(VIB1_PIN, HIGH);
       delay(500);
       digitalWrite(VIB1_PIN, LOW);
@@ -32,7 +32,7 @@ void loop() {
       SerialBT.println("DONE1");
     } 
     else if (signal == '2') {
-      // 햅틱2 진동 500ms
+      // 햅틱2 진동 500ms led켜기
       digitalWrite(VIB2_PIN, HIGH);
       delay(500);
       digitalWrite(VIB2_PIN, LOW);
