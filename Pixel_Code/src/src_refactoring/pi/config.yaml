@@ -1,0 +1,37 @@
+comm:  # ESP32
+  port: "/dev/serial/by-id/usb-1a86_USB_Single_Serial_599C004213-if00"
+  baud: 115200
+  timeout: 0.1
+  write_timeout: 0.1
+
+servo:
+  safe_deg: 0
+  warn_deg: 100
+  brake_deg: 140
+  failsafe_deg: 140
+
+fsm:
+  warn_ttc_s: 1.6
+  brake_ttc_s: 1.0
+  brake_dist_mm: 600
+  brake_release_dist_mm: 1000
+  lost_frames_to_fail: 3
+  ok_frames_to_recover: 2
+  brake_exit_frames: 2
+  verbose: false
+  v_est_mps: 0.5
+
+lidar:
+  port: "/dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_1ad1ac68546eef11997be5c2c169b110-if00-port0"
+  baud: 460800
+  pwm: 650
+  max_dist_mm: 6000
+  near_cutoff_mm: 80
+  front_gate_deg: 10
+  quantile: 0.2
+  min_points_front: 25
+
+app:
+  period: 0.1
+  log_dir: "pi/logs"
+  session_prefix: "run"
