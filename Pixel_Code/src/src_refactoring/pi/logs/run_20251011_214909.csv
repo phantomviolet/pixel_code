@@ -1,0 +1,4 @@
+ts,state,d_min_mm,v_mps,ttc_s,target_deg,reason,corner_active,corner_score
+1760186949.909,SAFE,0.75,,0.0,0,stop_mode_always_safe,False,1.0045833333333334
+1760186966.049,WARN,672.75,,,100,dist_only_warn_no_ttc,False,0.0
+1760186966.368,BRAKE,3.25,,,140,dist_only_brake_no_ttc,False,3.4766666666666666

@@ -1,0 +1,11 @@
+ts,state,d_min_mm,v_mps,ttc_s,target_deg,reason,corner_active,corner_score
+1760174073.433,SAFE,,,,0,tick,False,0.0
+1760174076.937,SAFE,,,,0,tick,False,0.0
+1760174080.642,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174084.146,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174087.650,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174091.154,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174094.658,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174098.165,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174101.669,FAILSAFE,,,,140,sensor_lost,False,0.0
+1760174105.173,FAILSAFE,,,,140,sensor_lost,False,0.0

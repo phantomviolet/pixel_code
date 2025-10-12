@@ -1,0 +1,3 @@
+ts,state,d_min_mm,v_mps,ttc_s,target_deg,reason,corner_active,corner_score
+1760187642.400,SAFE,,,,0,tick,False,0.0
+1760187643.954,SAFE,,,,0,tick,False,0.0
