@@ -1,0 +1,93 @@
+package com.example.bluetoothmotorcontrol
+
+import android.Manifest
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
+import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button /우선 버튼으로 테스트해보기
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import java.io.OutputStream
+import java.util.UUID
+
+class MainActivity : AppCompatActivity() {
+
+    private var bluetoothAdapter: BluetoothAdapter? = null
+    private var socket: BluetoothSocket? = null
+    private var outputStream: OutputStream? = null
+
+    // ESP32와 동일한 UUID (SPP 프로파일)
+    private val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val btnMotor1 = findViewById<Button>(R.id.btnMotor1)
+        val btnMotor2 = findViewById<Button>(R.id.btnMotor2)
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+
+        // ESP32와 페어링된 기기 중에서 이름으로 찾기
+        val device: BluetoothDevice? = bluetoothAdapter?.bondedDevices?.find {
+            it.name == "ESP32_Vibrator"   // ESP32 코드에서 지정한 이름
+        }
+
+        if (device == null) {
+            Toast.makeText(this, "ESP32 장치를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // 블루투스 연결 시도
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), 1)
+                return
+            }
+
+            socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
+            socket?.connect()
+            outputStream = socket?.outputStream
+
+            Toast.makeText(this, "ESP32에 연결되었습니다!", Toast.LENGTH_SHORT).show()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "연결 실패: ${e.message}", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        //버튼 클릭 시(혹은 신호,코드 받았을 시) ESP32로 신호 전송
+        btnMotor1.setOnClickListener {
+            sendData("1") // 모터1 작동(led?)
+        }
+
+        btnMotor2.setOnClickListener {
+            sendData("2") // 모터2 작동(led?)
+        }
+    }
+
+    private fun sendData(data: String) {
+        try {
+            outputStream?.write(data.toByteArray())
+            Toast.makeText(this, "$data 신호 전송 완료", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "데이터 전송 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            outputStream?.close()
+            socket?.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+}
