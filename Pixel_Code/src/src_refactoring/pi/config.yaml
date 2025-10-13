@@ -11,8 +11,8 @@ servo:
   failsafe_deg: 140
 
 fsm:
-  warn_ttc_s: 1.6
-  brake_ttc_s: 1.0
+  warn_ttc_s: 2.0 
+  brake_ttc_s: 1.3
   brake_dist_mm: 600
   brake_release_dist_mm: 1000
   lost_frames_to_fail: 3
